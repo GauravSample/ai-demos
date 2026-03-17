@@ -1,70 +1,115 @@
-# Getting Started with Create React App
+# AI Demos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Exploring OpenAI APIs — chat, prompt engineering, embeddings, and RAG — built with Next.js.
 
-## Available Scripts
+Live: [https://main.d30kst47gtj7uu.amplifyapp.com](https://main.d30kst47gtj7uu.amplifyapp.com)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## What's Inside
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Day 1 — OpenAI Chat
+Conversational chat with token-limit context management using `gpt-4o-mini`.
+- Multi-turn conversation with context window
+- Automatically resets context when token limit is reached
+- Token usage visualized in real time
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Day 2 — Prompt Comparator
+Same question sent to 4 different system prompts simultaneously.
+- Zero-shot
+- Role + Chain-of-thought
+- Few-shot
+- Structured output
+- Side-by-side comparison of output tokens, response time, and response length
 
-### `npm test`
+### Day 3 — Embeddings Explorer
+Step-by-step exploration of how text embeddings work using `text-embedding-3-small`.
+- Single embedding — visualize a 1536-dimension vector
+- Batch embedding — embed multiple texts in one API call
+- Cosine similarity — measure semantic closeness between sentences (pure JS, no library)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Day 4–5 — RAG Demo
+A minimal Retrieval-Augmented Generation pipeline built from scratch.
+- Paste any document → chunked and embedded into an in-memory vector store
+- Ask a question → semantically retrieves relevant chunks → generates a grounded answer
+- Shows retrieved source chunks with similarity scores
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| UI | React 18, CSS Modules |
+| AI | OpenAI API (`gpt-4o-mini`, `text-embedding-3-small`) |
+| Hosting | AWS Amplify |
+| CDN | CloudFront (auto-provisioned by Amplify) |
+| SSL | AWS Certificate Manager (auto-provisioned) |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Architecture
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+Browser
+   |
+CloudFront (CDN + SSL)
+   |
+Amplify Hosting
+   |
+   ├── Static assets (JS/CSS) → served from S3/CloudFront edge
+   |
+   └── Next.js Lambda Functions
+         ├── /                → SSR page
+         ├── /api/chat        → OpenAI chat completions
+         └── /api/embeddings  → OpenAI embeddings
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### API Key Security
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The OpenAI API key is never exposed to the browser. All API calls go through server-side Next.js Route Handlers:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+Browser → POST /api/chat (just the message)
+               ↓
+     Next.js API Route (server only)
+               ↓  uses OPENAI_API_KEY
+           OpenAI API
+               ↓
+     JSON response back to browser
+```
 
-## Learn More
+The key is stored in AWS SSM Parameter Store and injected at build time — never in the codebase.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Running Locally
 
-### Code Splitting
+```bash
+# 1. Clone the repo
+git clone https://github.com/GauravSample/ai-demos.git
+cd ai-demos
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# 2. Install dependencies
+npm install
 
-### Analyzing the Bundle Size
+# 3. Add your OpenAI key
+echo "OPENAI_API_KEY=sk-..." > .env.local
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# 4. Start dev server
+npm run dev
+```
 
-### Making a Progressive Web App
+Open [http://localhost:3000](http://localhost:3000).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Deployed on AWS Amplify with automatic CI/CD on every push to `main`.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Environment variables are stored in AWS SSM Parameter Store at:
+```
+/amplify/{appId}/{branch}/OPENAI_API_KEY
+```
