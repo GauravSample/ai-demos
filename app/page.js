@@ -1,10 +1,11 @@
+'use client';
+
 import { useState } from 'react';
-import Navbar from './components/Navbar';
-import OpenAIChat from './pages/OpenAIChat';
-import PromptComparator from './pages/PromptComparator';
-import EmbeddingsExplorer from './pages/EmbeddingsExplorer';
-import RAGDemo from './pages/RAGDemo';
-import './App.css';
+import Navbar from '../components/Navbar';
+import OpenAIChat from '../components/OpenAIChat';
+import PromptComparator from '../components/PromptComparator';
+import EmbeddingsExplorer from '../components/EmbeddingsExplorer';
+import RAGDemo from '../components/RAGDemo';
 
 const PAGES = {
   day1: <OpenAIChat />,
@@ -13,7 +14,7 @@ const PAGES = {
   day45: <RAGDemo />,
 };
 
-export default function App() {
+export default function Home() {
   const [activePage, setActivePage] = useState('day1');
 
   return (

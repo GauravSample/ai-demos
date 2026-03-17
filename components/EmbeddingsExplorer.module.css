@@ -1,0 +1,133 @@
+.page {
+  max-width: 780px;
+  margin: 40px auto;
+  padding: 0 20px 60px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  color: #222;
+}
+
+.heading { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.sub { color: #666; font-size: 13px; margin-bottom: 36px; }
+
+.section {
+  margin-bottom: 40px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: #fafafa;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.sectionNum {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #5856d6;
+  color: #fff;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.sectionTitle { font-size: 15px; font-weight: 600; }
+.sectionSub { font-size: 12px; color: #888; margin-top: 2px; }
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px 0;
+}
+
+.batchInputs { display: flex; flex-direction: column; gap: 0; }
+
+.input {
+  flex: 1;
+  padding: 9px 12px;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.input:focus { border-color: #5856d6; }
+
+.btn {
+  padding: 9px 18px;
+  background: #5856d6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  margin: 14px 20px 16px;
+  align-self: flex-start;
+}
+.btn:disabled { background: #bbb; cursor: not-allowed; }
+
+.badge {
+  font-size: 11px; font-weight: 600;
+  padding: 3px 8px; border-radius: 20px; flex-shrink: 0;
+}
+
+.card {
+  margin: 0 20px 20px;
+  background: #f8f8fb;
+  border: 1px solid #ebebf5;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.statsRow { display: flex; gap: 24px; margin-bottom: 18px; }
+.stat { text-align: center; }
+.statVal { font-size: 20px; font-weight: 700; color: #5856d6; line-height: 1.2; }
+.statLabel { font-size: 11px; color: #888; margin-top: 2px; }
+
+.previewLabel { font-size: 11px; color: #888; margin-bottom: 10px; font-weight: 500; }
+
+.barRow { display: flex; gap: 10px; align-items: flex-end; height: 80px; margin-bottom: 4px; }
+.barCol { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.barTrack {
+  width: 100%; height: 60px;
+  background: #e8e8f0; border-radius: 4px;
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.barFill { width: 100%; border-radius: 4px; transition: height 0.3s ease; min-height: 2px; }
+.barVal { font-size: 9px; color: #555; margin-top: 3px; font-family: monospace; }
+.barIdx { font-size: 9px; color: #bbb; }
+
+.note {
+  font-size: 12px; color: #777; line-height: 1.6; margin-top: 12px;
+  border-top: 1px solid #eee; padding-top: 10px;
+}
+
+.batchResults { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.batchRow {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff; border: 1px solid #e5e5e5; border-radius: 8px;
+  padding: 9px 12px; font-size: 12px;
+}
+.batchText { flex: 1; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.batchDims { font-size: 11px; color: #888; white-space: nowrap; }
+.batchPreview { font-family: monospace; font-size: 11px; color: #5856d6; white-space: nowrap; }
+
+.simRow { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.simPair { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.simVs { font-size: 11px; color: #aaa; }
+.simTrack { flex: 1; height: 10px; background: #e8e8f0; border-radius: 999px; overflow: hidden; }
+.simFill { height: 100%; border-radius: 999px; transition: width 0.4s ease; min-width: 2px; }
+.simScore { font-size: 14px; font-weight: 700; font-family: monospace; flex-shrink: 0; width: 46px; text-align: right; }
+.simLabel { font-size: 11px; color: #888; flex-shrink: 0; width: 100px; }
+
+.error { margin: 0 20px 14px; color: #c00; font-size: 13px; }

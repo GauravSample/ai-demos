@@ -1,0 +1,86 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 32px;
+  flex-shrink: 0;
+}
+
+.brandIcon {
+  background: #5856d6;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+}
+
+.brandText {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 14px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  background: #f5f5ff;
+}
+
+.tabLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+}
+
+.tabSub {
+  font-size: 11px;
+  color: #aaa;
+}
+
+.tabActive {
+  border-bottom-color: #5856d6;
+  background: #f5f5ff;
+}
+
+.tabActive .tabLabel {
+  color: #5856d6;
+}
+
+.tabActive .tabSub {
+  color: #8b8bd6;
+}
