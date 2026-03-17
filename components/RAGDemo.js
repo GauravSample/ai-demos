@@ -69,7 +69,7 @@ async function ragAnswer(query, store) {
       messages: [
         {
           role: 'system',
-          content: `Answer the question using ONLY the context below.\nIf the answer isn't in the context, say "I don't know".\nDo not make up information.\n\nContext:\n${context}`,
+          content: `Answer the question using the context below.\nYou may reason and infer from the context, but do not make up facts not supported by it.\nIf the context has no relevant information at all, say "I don't know".\n\nContext:\n${context}`,
         },
         { role: 'user', content: query },
       ],
