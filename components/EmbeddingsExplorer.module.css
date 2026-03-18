@@ -131,3 +131,38 @@
 .simLabel { font-size: 11px; color: #888; flex-shrink: 0; width: 100px; }
 
 .error { margin: 0 20px 14px; color: #c00; font-size: 13px; }
+
+@media (max-width: 640px) {
+  .page {
+    margin: 20px auto;
+    padding: 0 12px 40px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 12px 0;
+  }
+
+  .statsRow {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .simRow {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .simLabel {
+    width: auto;
+  }
+
+  .simScore {
+    width: auto;
+  }
+
+  .batchPreview {
+    display: none;
+  }
+}

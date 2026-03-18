@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from './OpenAIChat.module.css';
 
 const SYSTEM_MESSAGE = { role: 'system', content: 'You are a very very helpful assistant.' };
-const TOKEN_LIMIT = 100;
+const TOKEN_LIMIT = 600;
 
 export default function Day1Chat() {
   const [prompt, setPrompt] = useState('');

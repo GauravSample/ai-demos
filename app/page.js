@@ -6,6 +6,7 @@ import OpenAIChat from '../components/OpenAIChat';
 import PromptComparator from '../components/PromptComparator';
 import EmbeddingsExplorer from '../components/EmbeddingsExplorer';
 import RAGDemo from '../components/RAGDemo';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const PAGES = {
   day1: <OpenAIChat />,
@@ -21,7 +22,9 @@ export default function Home() {
     <div className="app">
       <Navbar active={activePage} onSelect={setActivePage} />
       <main className="main">
-        {PAGES[activePage]}
+        <ErrorBoundary key={activePage}>
+          {PAGES[activePage]}
+        </ErrorBoundary>
       </main>
     </div>
   );

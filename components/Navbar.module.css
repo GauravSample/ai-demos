@@ -84,3 +84,38 @@
 .tabActive .tabSub {
   color: #8b8bd6;
 }
+
+@media (max-width: 640px) {
+  .nav {
+    padding: 0 12px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    margin-right: 12px;
+    padding: 8px 0;
+  }
+
+  .brandText {
+    font-size: 13px;
+  }
+
+  .tabs {
+    width: 100%;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .tab {
+    padding: 10px 12px;
+    flex: 1;
+    align-items: center;
+  }
+
+  .tabSub {
+    display: none;
+  }
+
+  .tabLabel {
+    font-size: 12px;
+  }
+}

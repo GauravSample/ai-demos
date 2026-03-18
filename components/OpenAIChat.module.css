@@ -104,3 +104,15 @@
   color: #222;
   margin: 0;
 }
+
+@media (max-width: 640px) {
+  .page {
+    margin: 20px auto;
+    padding: 0 16px 40px;
+  }
+
+  .btn {
+    align-self: stretch;
+    text-align: center;
+  }
+}
