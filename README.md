@@ -8,30 +8,30 @@ Live: [https://main.d30kst47gtj7uu.amplifyapp.com](https://main.d30kst47gtj7uu.a
 
 ## What's Inside
 
-### Day 1 — OpenAI Chat
-Conversational chat with token-limit context management using `gpt-4o-mini`.
-- Multi-turn conversation with context window
-- Automatically resets context when token limit is reached
+### Conversational AI
+Multi-turn chat with manual context window management using `gpt-4o-mini`.
+- Conversation history tracked in state and passed with every request
+- Context automatically resets when token limit is reached — mimicking how production chatbots handle long sessions
 - Token usage visualized in real time
 
-### Day 2 — Prompt Comparator
-Same question sent to 4 different system prompts simultaneously.
+### Prompt Engineering
+The same question sent to 4 different system prompts in parallel, comparing results side by side.
 - Zero-shot
 - Role + Chain-of-thought
 - Few-shot
 - Structured output
-- Side-by-side comparison of output tokens, response time, and response length
+- Compares output tokens (cost), response time, and response length across all 4
 
-### Day 3 — Embeddings Explorer
-Step-by-step exploration of how text embeddings work using `text-embedding-3-small`.
-- Single embedding — visualize a 1536-dimension vector
-- Batch embedding — embed multiple texts in one API call
-- Cosine similarity — measure semantic closeness between sentences (pure JS, no library)
+### Embeddings
+Text converted into 1536-dimension vectors using `text-embedding-3-small`.
+- Visualize a single embedding vector
+- Batch multiple texts in one API call
+- Cosine similarity computed in plain JavaScript — no vector library — to show how semantic search works under the hood
 
-### Day 4–5 — RAG Demo
-A minimal Retrieval-Augmented Generation pipeline built from scratch.
+### RAG Pipeline
+Retrieval-Augmented Generation built from scratch — no LangChain, no framework.
 - Paste any document → chunked and embedded into an in-memory vector store
-- Ask a question → semantically retrieves relevant chunks → generates a grounded answer
+- Ask a question → semantically retrieves the most relevant chunks → injects them as context → generates a grounded answer
 - Shows retrieved source chunks with similarity scores
 
 ---
@@ -66,6 +66,12 @@ Amplify Hosting
          └── /api/embeddings  → OpenAI embeddings
 ```
 
+### Production-grade features
+- **Rate limiting** — 20 requests/min per IP via Next.js middleware
+- **Input validation** — message length and format checked before hitting OpenAI
+- **Error boundaries** — each tab is isolated, crashes don't take down the whole app
+- **Logging** — all API errors logged with context, visible in AWS CloudWatch
+
 ### API Key Security
 
 The OpenAI API key is never exposed to the browser. All API calls go through server-side Next.js Route Handlers:
@@ -80,7 +86,7 @@ Browser → POST /api/chat (just the message)
      JSON response back to browser
 ```
 
-The key is stored in AWS SSM Parameter Store and injected at build time — never in the codebase.
+The key is stored in AWS SSM Parameter Store — never in the codebase.
 
 ---
 
@@ -102,6 +108,16 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Running Tests
+
+```bash
+npm test
+```
+
+Unit tests cover `cosineSimilarity`, `chunkText`, and API input validation logic.
 
 ---
 
