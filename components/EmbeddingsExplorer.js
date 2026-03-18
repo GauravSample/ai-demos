@@ -319,9 +319,9 @@ function CosineSim() {
 export default function Day3Embeddings() {
   return (
     <div className={styles.page}>
-      <h1 className={styles.heading}>Embeddings Explorer</h1>
+      <h1 className={styles.heading}>Embeddings</h1>
       <p className={styles.sub}>
-        Learn how text embeddings work — step by step — using <code>text-embedding-3-small</code>
+        Text converted into 1536-dimension vectors using <code>text-embedding-3-small</code>. Cosine similarity is computed in plain JavaScript — no vector library — to show how semantic search works under the hood.
       </p>
       <SingleEmbed />
       <BatchEmbed />

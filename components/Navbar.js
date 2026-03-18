@@ -3,10 +3,10 @@
 import styles from './Navbar.module.css';
 
 const TABS = [
-  { id: 'day1', label: 'Day 1', sub: 'OpenAI Chat' },
-  { id: 'day2', label: 'Day 2', sub: 'Prompt Comparator' },
-  { id: 'day3', label: 'Day 3', sub: 'Embeddings Explorer' },
-  { id: 'day45', label: 'Day 4–5', sub: 'RAG Demo' },
+  { id: 'day1', label: 'Conversational AI', sub: 'Context & token management' },
+  { id: 'day2', label: 'Prompt Engineering', sub: 'Zero-shot to structured output' },
+  { id: 'day3', label: 'Embeddings', sub: 'Vectors & semantic similarity' },
+  { id: 'day45', label: 'RAG Pipeline', sub: 'Retrieval-augmented generation' },
 ];
 
 export default function Navbar({ active, onSelect }) {
@@ -14,7 +14,7 @@ export default function Navbar({ active, onSelect }) {
     <nav className={styles.nav}>
       <div className={styles.brand}>
         <span className={styles.brandIcon}>AI</span>
-        <span className={styles.brandText}>AI Capability</span>
+        <span className={styles.brandText}>AI Demos</span>
       </div>
       <div className={styles.tabs}>
         {TABS.map((tab) => (

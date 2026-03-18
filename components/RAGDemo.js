@@ -146,8 +146,8 @@ export default function Day45RAG() {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.heading}>RAG Demo</h1>
-      <p className={styles.sub}>Build a simple RAG pipeline using OpenAI embeddings and chat completions.</p>
+      <h1 className={styles.heading}>RAG Pipeline</h1>
+      <p className={styles.sub}>Retrieval-Augmented Generation built from scratch — no LangChain, no framework. Documents are chunked, embedded, and stored in an in-memory vector store. Queries retrieve the most semantically relevant chunks which are injected into the prompt as context.</p>
 
       <section className={styles.section}>
         <div className={styles.sectionHeader}>

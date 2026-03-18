@@ -73,9 +73,9 @@ export default function Day2Comparator() {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.heading}>Prompt Comparator</h1>
+      <h1 className={styles.heading}>Prompt Engineering</h1>
       <p className={styles.sub}>
-        Zero-shot · Role + CoT · Few-shot · Structured output — same question, 4 different system prompts
+        The same question sent to 4 different system prompts in parallel — zero-shot, role + chain-of-thought, few-shot, and structured output. Demonstrates how prompt design directly affects output quality, cost, and latency.
       </p>
 
       <div className={styles.inputRow}>

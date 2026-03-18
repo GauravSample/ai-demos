@@ -50,8 +50,8 @@ export default function Day1Chat() {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.heading}>OpenAI Chat</h1>
-      <p className={styles.sub}>Conversational chat with token-limit context management using <code>gpt-4o-mini</code></p>
+      <h1 className={styles.heading}>Conversational AI</h1>
+      <p className={styles.sub}>Multi-turn chat using <code>gpt-4o-mini</code> with manual context window management — the conversation history is tracked in state and trimmed when it approaches the token limit, mimicking how production chatbots handle long sessions.</p>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <textarea
