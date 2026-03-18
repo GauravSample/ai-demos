@@ -1,8 +1,69 @@
 'use client';
 
 import { useState } from 'react';
+import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import { DEFAULT_PROMPTS } from '../data/prompts';
 import styles from './PromptComparator.module.css';
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+const BORDER_COLORS = ['#5b21b6', '#065f46', '#92400e', '#9d174d'];
+const BG_COLORS = ['#ede9fe', '#d1fae5', '#fef3c7', '#fce7f3'];
+
+function ComparisonCharts({ prompts }) {
+  const done = prompts.filter((p) => p.result);
+  const labels = done.map((p) => p.name);
+  const colors = done.map((_, i) => BORDER_COLORS[i]);
+  const bgColors = done.map((_, i) => BG_COLORS[i]);
+
+  const chartOptions = {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: { y: { beginAtZero: true, grid: { color: '#f0f0f0' } } },
+    borderRadius: 6,
+  };
+
+  const tokenChart = {
+    labels,
+    datasets: [{ label: 'Output Tokens', data: done.map((p) => p.outputTokens), backgroundColor: bgColors, borderColor: colors, borderWidth: 1.5 }],
+  };
+
+  const timeChart = {
+    labels,
+    datasets: [{ label: 'Response Time (ms)', data: done.map((p) => p.ms), backgroundColor: bgColors, borderColor: colors, borderWidth: 1.5 }],
+  };
+
+  const lengthChart = {
+    labels,
+    datasets: [{ label: 'Response Length (chars)', data: done.map((p) => p.result.length), backgroundColor: bgColors, borderColor: colors, borderWidth: 1.5 }],
+  };
+
+  return (
+    <div className={styles.chartsRow}>
+      <div className={styles.chartCard}>
+        <div className={styles.diffCardLabel}>Output Tokens (cost)</div>
+        <Bar data={tokenChart} options={chartOptions} />
+      </div>
+      <div className={styles.chartCard}>
+        <div className={styles.diffCardLabel}>Response Time (ms)</div>
+        <Bar data={timeChart} options={chartOptions} />
+      </div>
+      <div className={styles.chartCard}>
+        <div className={styles.diffCardLabel}>Response Length (chars)</div>
+        <Bar data={lengthChart} options={chartOptions} />
+      </div>
+    </div>
+  );
+}
 
 async function callLLM(systemPrompt, userMessage) {
   const start = Date.now();
@@ -28,7 +89,7 @@ async function callLLM(systemPrompt, userMessage) {
   };
 }
 
-export default function Day2Comparator() {
+export default function Day2Comparator({ onResultsReady }) {
   const [userMsg, setUserMsg] = useState('Explain the difference between async/await and Promises in JavaScript.');
   const [prompts, setPrompts] = useState(
     DEFAULT_PROMPTS.map((p) => ({
@@ -67,6 +128,7 @@ export default function Day2Comparator() {
       })
     );
     setRunning(false);
+    if (onResultsReady) onResultsReady();
   };
 
   const hasResults = prompts.some((p) => p.result);
@@ -75,7 +137,7 @@ export default function Day2Comparator() {
     <div className={styles.page}>
       <h1 className={styles.heading}>Prompt Engineering</h1>
       <p className={styles.sub}>
-        The same question sent to 4 different system prompts in parallel — zero-shot, role + chain-of-thought, few-shot, and structured output. Demonstrates how prompt design directly affects output quality, cost, and latency.
+        The same question sent to 4 different system prompts in parallel — zero-shot, role + chain-of-thought, few-shot, and structured output. Results are compared side by side with bar charts showing token cost, response time, and output length across all 4 strategies.
       </p>
 
       <div className={styles.inputRow}>
@@ -132,36 +194,8 @@ export default function Day2Comparator() {
 
       {hasResults && (
         <div className={styles.diffSection}>
-          <div className={styles.diffLabel}>COMPARISON</div>
-          <div className={styles.diffGrid}>
-            <div className={styles.diffCard}>
-              <div className={styles.diffCardLabel}>Output tokens (cost)</div>
-              {prompts.filter((p) => p.outputTokens).map((p, i) => (
-                <div key={i} className={styles.diffRow}>
-                  <span style={{ color: '#666' }}>{p.name}</span>
-                  <strong>{p.outputTokens}</strong>
-                </div>
-              ))}
-            </div>
-            <div className={styles.diffCard}>
-              <div className={styles.diffCardLabel}>Response time (ms)</div>
-              {prompts.filter((p) => p.ms).map((p, i) => (
-                <div key={i} className={styles.diffRow}>
-                  <span style={{ color: '#666' }}>{p.name}</span>
-                  <strong>{p.ms}</strong>
-                </div>
-              ))}
-            </div>
-            <div className={styles.diffCard}>
-              <div className={styles.diffCardLabel}>Response length (chars)</div>
-              {prompts.filter((p) => p.result).map((p, i) => (
-                <div key={i} className={styles.diffRow}>
-                  <span style={{ color: '#666' }}>{p.name}</span>
-                  <strong>{p.result.length}</strong>
-                </div>
-              ))}
-            </div>
-          </div>
+          <div className={styles.diffLabel}>PERFORMANCE COMPARISON ACROSS PROMPT STRATEGIES</div>
+          <ComparisonCharts prompts={prompts} />
         </div>
       )}
     </div>

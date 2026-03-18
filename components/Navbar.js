@@ -9,7 +9,7 @@ const TABS = [
   { id: 'day45', label: 'RAG Pipeline', sub: 'Retrieval-augmented generation' },
 ];
 
-export default function Navbar({ active, onSelect }) {
+export default function Navbar({ active, onSelect, pulseTab }) {
   return (
     <nav className={styles.nav}>
       <div className={styles.brand}>
@@ -20,7 +20,7 @@ export default function Navbar({ active, onSelect }) {
         {TABS.map((tab) => (
           <button
             key={tab.id}
-            className={`${styles.tab} ${active === tab.id ? styles.tabActive : ''}`}
+            className={`${styles.tab} ${active === tab.id ? styles.tabActive : ''} ${pulseTab === tab.id ? styles.tabWiggle : ''}`}
             onClick={() => onSelect(tab.id)}
           >
             <span className={styles.tabLabel}>{tab.label}</span>
