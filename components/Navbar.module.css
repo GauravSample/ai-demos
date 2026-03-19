@@ -40,6 +40,12 @@
   display: flex;
   gap: 0;
   overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .tab {

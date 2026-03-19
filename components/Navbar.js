@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './Navbar.module.css';
 
 const TABS = [
@@ -12,14 +12,19 @@ const TABS = [
 
 export default function Navbar({ active, onSelect }) {
   const [wiggle, setWiggle] = useState(false);
+  const tabRefs = useRef({});
 
   useEffect(() => {
     const interval = setInterval(() => {
       setWiggle(true);
-      setTimeout(() => setWiggle(false), 1000); // matches animation duration (0.5s × 2)
+      setTimeout(() => setWiggle(false), 1000);
     }, 8000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    tabRefs.current[active]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+  }, [active]);
 
   return (
     <nav className={styles.nav}>
@@ -31,6 +36,7 @@ export default function Navbar({ active, onSelect }) {
         {TABS.map((tab) => (
           <button
             key={tab.id}
+            ref={(el) => (tabRefs.current[tab.id] = el)}
             className={`${styles.tab} ${active === tab.id ? styles.tabActive : ''} ${wiggle && active !== tab.id ? styles.tabWiggle : ''}`}
             onClick={() => onSelect(tab.id)}
           >
