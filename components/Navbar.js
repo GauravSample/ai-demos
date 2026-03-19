@@ -18,7 +18,7 @@ export default function Navbar({ active, onSelect }) {
     const interval = setInterval(() => {
       setWiggle(true);
       setTimeout(() => setWiggle(false), 1000);
-    }, 8000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
