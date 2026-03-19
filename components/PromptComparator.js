@@ -89,7 +89,7 @@ async function callLLM(systemPrompt, userMessage) {
   };
 }
 
-export default function Day2Comparator({ onResultsReady }) {
+export default function Day2Comparator() {
   const [userMsg, setUserMsg] = useState('Explain the difference between async/await and Promises in JavaScript.');
   const [prompts, setPrompts] = useState(
     DEFAULT_PROMPTS.map((p) => ({
@@ -128,7 +128,6 @@ export default function Day2Comparator({ onResultsReady }) {
       })
     );
     setRunning(false);
-    if (onResultsReady) onResultsReady();
   };
 
   const hasResults = prompts.some((p) => p.result);

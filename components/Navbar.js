@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import styles from './Navbar.module.css';
 
 const TABS = [
@@ -9,7 +10,17 @@ const TABS = [
   { id: 'day45', label: 'RAG Pipeline', sub: 'Retrieval-augmented generation' },
 ];
 
-export default function Navbar({ active, onSelect, pulseTab }) {
+export default function Navbar({ active, onSelect }) {
+  const [wiggle, setWiggle] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWiggle(true);
+      setTimeout(() => setWiggle(false), 1000); // matches animation duration (0.5s × 2)
+    }, 8000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <nav className={styles.nav}>
       <div className={styles.brand}>
@@ -20,7 +31,7 @@ export default function Navbar({ active, onSelect, pulseTab }) {
         {TABS.map((tab) => (
           <button
             key={tab.id}
-            className={`${styles.tab} ${active === tab.id ? styles.tabActive : ''} ${pulseTab === tab.id ? styles.tabWiggle : ''}`}
+            className={`${styles.tab} ${active === tab.id ? styles.tabActive : ''} ${wiggle && active !== tab.id ? styles.tabWiggle : ''}`}
             onClick={() => onSelect(tab.id)}
           >
             <span className={styles.tabLabel}>{tab.label}</span>

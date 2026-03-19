@@ -169,32 +169,6 @@
   margin-bottom: 8px;
 }
 
-.diffGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
-}
-
-.diffCard {
-  background: #f7f7f7;
-  border-radius: 8px;
-  padding: 10px 14px;
-  border: 1px solid #eee;
-}
-
-.diffCardLabel {
-  font-size: 11px;
-  color: #888;
-  margin-bottom: 6px;
-}
-
-.diffRow {
-  font-size: 13px;
-  margin-top: 3px;
-  display: flex;
-  justify-content: space-between;
-}
-
 @media (max-width: 640px) {
   .page {
     margin: 16px auto;
