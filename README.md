@@ -2,7 +2,7 @@
 
 Exploring OpenAI APIs — chat, prompt engineering, embeddings, and RAG — built with Next.js.
 
-Live: [https://main.d30kst47gtj7uu.amplifyapp.com](https://main.d30kst47gtj7uu.amplifyapp.com)
+Live: [https://main.d1uzgim9nflwqx.amplifyapp.com/](https://main.d1uzgim9nflwqx.amplifyapp.com/)
 
 ---
 
